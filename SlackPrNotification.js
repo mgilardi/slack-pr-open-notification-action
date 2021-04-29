@@ -14,11 +14,21 @@ var baseBranchOwner = process.env.PULL_REQUEST_BASE_BRANCH_OWNER;
 var baseBranchName = process.env.PULL_REQUEST_BASE_BRANCH_NAME;
 var sendHereMention = process.env.IS_SEND_HERE_MENTION.toLowerCase() === "true" ? "<!here>\n" : "";
 var requestedReviewers = JSON.parse(process.env.PULL_REQUEST_REQUESTED_REVIEWERS);
+var requestedReviewersExist = Object.keys(requestedReviewers).length === 0 ? "false" : "true"
 var prFromFork = process.env.IS_PR_FROM_FORK;
-var rrExist = Object.keys(requestedReviewers).length === 0 ? "false" : "true"
 var mainSectionTitleText = prFromFork === "true" ? sendHereMention + "*<" + prUrl + "|" + prTitle + "> (" + baseBranchOwner + "#" + prNum + ")*" : sendHereMention + "*<" + prUrl + "|" + prTitle + ">*";
 var compareBranchText = prFromFork === "true" ? "*Compare branch*\n" + compareBranchOwner + ":" + compareBranchName : "*Compare branch*\n" + compareBranchName;
 var baseBranchText = prFromFork === "true" ? "*Base branch*\n" + baseBranchOwner + ":" + baseBranchName : "*Base branch*\n" + baseBranchName;
+var text = "";
+
+if (requestedReviewersExist === "true") {
+    for (var key in requestedReviewers){
+      if(obj.hasOwnProperty(key)){
+        text = ${key} + ":" + ${requestedReviewers[key]}
+      }
+    }
+}
+
 var message = {
     blocks: [
         {
@@ -55,10 +65,13 @@ var message = {
             type: "section",
             text: {
                 type: "plain_text",
-                text: prBody + rrExist + requestedReviewers,
+                text: prBody + text,
                 emoji: true
             }
         },
     ]
 };
-axios_1["default"].post(url, message);
+
+if (requestedReviewersExist === "true") {
+    axios_1["default"].post(url, message);
+}
