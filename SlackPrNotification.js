@@ -32,7 +32,7 @@ var message = {
             fields: [
                 {
                     type: "mrkdwn",
-                    text: "*Reviewers*\n" + requestedReviewers
+                    text: "*Reviewers*\n" 
                 },
                 {
                     type: "mrkdwn",
