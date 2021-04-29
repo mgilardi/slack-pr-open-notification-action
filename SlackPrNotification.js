@@ -13,6 +13,7 @@ var compareBranchName = process.env.PULL_REQUEST_COMPARE_BRANCH_NAME;
 var baseBranchOwner = process.env.PULL_REQUEST_BASE_BRANCH_OWNER;
 var baseBranchName = process.env.PULL_REQUEST_BASE_BRANCH_NAME;
 var sendHereMention = process.env.IS_SEND_HERE_MENTION.toLowerCase() === "true" ? "<!here>\n" : "";
+var requestedReviewers = process.env.PULL_REQUEST_REQUESTED_REVIEWERS;
 var prFromFork = process.env.IS_PR_FROM_FORK;
 var mainSectionTitleText = prFromFork === "true" ? sendHereMention + "*<" + prUrl + "|" + prTitle + "> (" + baseBranchOwner + "#" + prNum + ")*" : sendHereMention + "*<" + prUrl + "|" + prTitle + ">*";
 var compareBranchText = prFromFork === "true" ? "*Compare branch*\n" + compareBranchOwner + ":" + compareBranchName : "*Compare branch*\n" + compareBranchName;
@@ -53,7 +54,7 @@ var message = {
             type: "section",
             text: {
                 type: "plain_text",
-                text: prBody,
+                text: prBody + requestedReviewers,
                 emoji: true
             }
         },
