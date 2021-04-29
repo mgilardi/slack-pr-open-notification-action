@@ -16,7 +16,7 @@ var sendHereMention = process.env.IS_SEND_HERE_MENTION.toLowerCase() === "true" 
 var requestedReviewers = JSON.parse(process.env.PULL_REQUEST_REQUESTED_REVIEWERS);
 var requestedReviewersExist = Object.keys(requestedReviewers).length === 0 ? "false" : "true"
 var prFromFork = process.env.IS_PR_FROM_FORK;
-var mainSectionTitleText = prFromFork === "true" ? sendHereMention + "*<" + prUrl + "|" + prTitle + "> (" + baseBranchOwner + "#" + prNum + ")*" : sendHereMention + "*<" + prUrl + "|" + prTitle + ">*";
+var mainSectionTitleText = prFromFork === "true" ? sendHereMention + "*<" + prUrl + "|" + prTitle + " (" + baseBranchOwner + "#" + prNum + ")>*" : sendHereMention + "*<" + prUrl + "|" + prTitle + " (" + "#" + prNum + ")>*";
 var compareBranchText = prFromFork === "true" ? "*Compare branch*\n" + compareBranchOwner + ":" + compareBranchName : "*Compare branch*\n" + compareBranchName;
 var baseBranchText = prFromFork === "true" ? "*Base branch*\n" + baseBranchOwner + ":" + baseBranchName : "*Base branch*\n" + baseBranchName;
 var requestedReviewersText = "";
@@ -55,7 +55,7 @@ var message = {
                 },
                 {
                     type: "mrkdwn",
-                    text: "*Reviewers*\n#" + requestedReviewersText
+                    text: "*Reviewers*\n" + requestedReviewersText
                 },
                 {
                     type: "mrkdwn",
