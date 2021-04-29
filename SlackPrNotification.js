@@ -22,10 +22,9 @@ var baseBranchText = prFromFork === "true" ? "*Base branch*\n" + baseBranchOwner
 var text = "";
 
 if (requestedReviewersExist === "true") {
-    for (var key in requestedReviewers){
-      if(obj.hasOwnProperty(key)){
-        text = ${key} + ":" + ${requestedReviewers[key]}
-      }
+    for (var i = 0; i < requestedReviewers.length; i++) {
+        var text2 = requestedReviewers[i].login + " ";
+        text = text.concat(text2);
     }
 }
 
