@@ -19,12 +19,15 @@ var prFromFork = process.env.IS_PR_FROM_FORK;
 var mainSectionTitleText = prFromFork === "true" ? sendHereMention + "*<" + prUrl + "|" + prTitle + "> (" + baseBranchOwner + "#" + prNum + ")*" : sendHereMention + "*<" + prUrl + "|" + prTitle + ">*";
 var compareBranchText = prFromFork === "true" ? "*Compare branch*\n" + compareBranchOwner + ":" + compareBranchName : "*Compare branch*\n" + compareBranchName;
 var baseBranchText = prFromFork === "true" ? "*Base branch*\n" + baseBranchOwner + ":" + baseBranchName : "*Base branch*\n" + baseBranchName;
-var text = "";
+var requestedReviewersText = "";
 
 if (requestedReviewersExist === "true") {
     for (var i = 0; i < requestedReviewers.length; i++) {
-        var text2 = requestedReviewers[i].login + " ";
-        text = text.concat(text2);
+        if (i == requestedReviewers.length - 1) {
+            requestedReviewersText = requestedReviewersText.concat(requestedReviewers[i].login);
+        } else {
+            requestedReviewersText = requestedReviewersText.concat(requestedReviewers[i].login + ", ");
+        }
     }
 }
 
@@ -52,7 +55,7 @@ var message = {
                 },
                 {
                     type: "mrkdwn",
-                    text: "*Pull request number*\n#" + prNum
+                    text: "*Reviewers*\n#" + requestedReviewersText
                 },
                 {
                     type: "mrkdwn",
@@ -64,7 +67,7 @@ var message = {
             type: "section",
             text: {
                 type: "plain_text",
-                text: prBody + text,
+                text: prBody,
                 emoji: true
             }
         },
