@@ -14,6 +14,7 @@ var baseBranchOwner = process.env.PULL_REQUEST_BASE_BRANCH_OWNER;
 var baseBranchName = process.env.PULL_REQUEST_BASE_BRANCH_NAME;
 var sendHereMention = process.env.IS_SEND_HERE_MENTION.toLowerCase() === "true" ? "<!here>\n" : "";
 var prFromFork = process.env.IS_PR_FROM_FORK;
+var mainSectionTitleText = prFromFork === "true" ? sendHereMention + "*<" + prUrl + "|" + prTitle + "> (" + baseBranchOwner + "#" + prNum + ")*" : sendHereMention + "*<" + prUrl + "|" + prTitle + ">*";
 var compareBranchText = prFromFork === "true" ? "*Compare branch*\n" + compareBranchOwner + ":" + compareBranchName : "*Compare branch*\n" + compareBranchName;
 var baseBranchText = prFromFork === "true" ? "*Base branch*\n" + baseBranchOwner + ":" + baseBranchName : "*Base branch*\n" + baseBranchName;
 var message = {
@@ -22,7 +23,7 @@ var message = {
             type: "section",
             text: {
                 type: "mrkdwn",
-                text: sendHereMention + "*<" + prUrl + "|" + prTitle + ">*"
+                text: mainSectionTitleText
             },
             accessory: {
                 type: "image",
