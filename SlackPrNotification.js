@@ -32,7 +32,7 @@ var message = {
             fields: [
                 {
                     type: "mrkdwn",
-                    text: "*Reviewers*\n" 
+                    text: "*Author*\n" + authorName
                 },
                 {
                     type: "mrkdwn",
@@ -58,5 +58,4 @@ var message = {
         },
     ]
 };
-
 axios_1["default"].post(url, message);
