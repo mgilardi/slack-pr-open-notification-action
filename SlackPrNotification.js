@@ -12,6 +12,8 @@ var compareBranchOwner = process.env.PULL_REQUEST_COMPARE_BRANCH_OWNER;
 var compareBranchName = process.env.PULL_REQUEST_COMPARE_BRANCH_NAME;
 var baseBranchOwner = process.env.PULL_REQUEST_BASE_BRANCH_OWNER;
 var baseBranchName = process.env.PULL_REQUEST_BASE_BRANCH_NAME;
+var requestedReviewers = process.env.PULL_REQUEST_REQUESTED_REVIEWERS;
+print requestedReviewers;
 var sendHereMention = process.env.IS_SEND_HERE_MENTION.toLowerCase() === "true" ? "<!here>\n" : "";
 var prFromFork = process.env.IS_PR_FROM_FORK;
 var compareBranchText = prFromFork === "true" ? "*Compare branch*\n" + compareBranchOwner + ":" + compareBranchName : "*Compare branch*\n" + compareBranchName;
@@ -58,4 +60,6 @@ var message = {
         },
     ]
 };
-axios_1["default"].post(url, message);
+if (requestedReviewers != null) {
+    axios_1["default"].post(url, message);
+}
