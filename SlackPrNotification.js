@@ -60,6 +60,5 @@ var message = {
         },
     ]
 };
-//if (requestedReviewers != null) {
-    axios_1["default"].post(url, message);
-//}
+
+axios_1["default"].post(url, message);
